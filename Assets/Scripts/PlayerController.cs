@@ -102,10 +102,10 @@ public class PlayerController : MonoBehaviour
 
     void Movement(Vector3 moveDirection)
     {
-        transform.position += moveDirection.normalized * moveSpeed * Time.deltaTime;
+        transform.position += moveDirection.normalized * moveSpeed * Time.fixedDeltaTime;
 
         if (moveDirection != Vector3.zero)
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed * Time.fixedDeltaTime);
     }
 
 }
