@@ -12,9 +12,7 @@ public class PlayerController : MonoBehaviour
     Transform relativeTransform;
     [SerializeField]
     GameObject[] groundElements;
-    Transform[] originalPositions;
-    Transform[] tempPositionsTop;
-    Transform[] tempPositionsSide;
+    
     int camValue;
 
     Vector3 localMoveInput;
@@ -25,12 +23,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         groundElements = GameObject.FindGameObjectsWithTag("Ground");
-        for (int i = 0; i < groundElements.Length; i++)
-        {
-            Debug.Log(originalPositions[i]);
-            originalPositions[i] = groundElements[i].transform;
-            Debug.Log(originalPositions[i]);
-        }
     }
     void FixedUpdate()
     {
@@ -40,7 +32,7 @@ public class PlayerController : MonoBehaviour
             MainCam();
             for (int i = 0; i < groundElements.Length; i++)
             {
-                groundElements[i].transform.position = originalPositions[i].position;
+                groundElements[i].GetComponent<ObjectController>().ChangeToMain();
             }
         }
 
@@ -49,10 +41,7 @@ public class PlayerController : MonoBehaviour
             SideCam();
             for (int i = 0; i < groundElements.Length; i++)
             {
-                groundElements[i].transform.position = originalPositions[i].position;
-                tempPositionsSide[i].position = originalPositions[i].position;
-                tempPositionsSide[i].position = new Vector3(0, tempPositionsSide[i].position.y, tempPositionsSide[i].position.z);
-                groundElements[i].transform.position = tempPositionsSide[i].position;
+                groundElements[i].GetComponent<ObjectController>().ChangeToSide();
             }
         }
 
@@ -61,10 +50,7 @@ public class PlayerController : MonoBehaviour
             TopCam();
             for (int i = 0; i < groundElements.Length; i++)
             {
-                groundElements[i].transform.position = originalPositions[i].position;
-                tempPositionsTop[i].position = originalPositions[i].position;
-                tempPositionsTop[i].position = new Vector3(tempPositionsTop[i].position.x, 0, tempPositionsTop[i].position.z);
-                groundElements[i].transform.position = tempPositionsTop[i].position;
+                groundElements[i].GetComponent<ObjectController>().ChangeToTop();
             }
         }
     }
