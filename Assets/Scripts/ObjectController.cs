@@ -30,7 +30,7 @@ public class ObjectController : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         camValue = cam.GetComponent<CamController>().currentCamera;
         if (camValue == 0)
@@ -48,24 +48,30 @@ public class ObjectController : MonoBehaviour
     }
     public void ChangeToMain()
     {
+        offset = -offsetSide;
         transform.position = originalPositions;
-        offset = Vector3.zero;
     }
 
     public void ChangeToSide()
     {
+        if (camValue == 1)
+        {
+            offset = Vector3.zero;
+        }
+        else
+        {
+            Debug.Log("Called");
+            offset = offsetSide;
+        }
         tempPositionsSide = new Vector3(0, tempPositionsSide.y, tempPositionsSide.z);
         transform.position = tempPositionsSide;
-        Debug.Log("Side offset for " + offsetSide);
-        offset = offsetSide;
     }
 
     public void ChangeToTop()
     {
+        offset = offsetTop;
         tempPositionsTop = new Vector3(tempPositionsTop.x, 0, tempPositionsTop.z);
         transform.position = tempPositionsTop;
-        Debug.Log("Top offset for " + offsetTop);
-        offset = offsetTop;
     }
 
 

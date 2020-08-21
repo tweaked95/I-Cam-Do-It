@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public static int lives;
 
     public Camera cam;
+    public GameObject youWinScreen;
 
     Transform relativeTransform;
     [SerializeField]
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     int camValue;
     RaycastHit hit;
+    bool valueChanging = false;
 
     Vector3 localMoveInput;
     Vector3 rightWorldMovement;
@@ -31,13 +33,30 @@ public class PlayerController : MonoBehaviour
         groundElements = GameObject.FindGameObjectsWithTag("Ground");
         lives = 3;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("E is Pressed");
+            if (!valueChanging)
+            {
+                valueChanging = true;
+                Debug.Log("Adding Offset " + offsetObject.GetComponent<ObjectController>().offset + "of " + offsetObject.name);
+                transform.position += offsetObject.GetComponent<ObjectController>().offset;
+                cam.GetComponent<CamController>().currentCamera++;
+                StartCoroutine("ChangingValue");
+
+            }
+        }
+    }
     void FixedUpdate()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 5))
         {
             if (hit.collider.gameObject.CompareTag("KillVolume"))
             {
-                transform.position = Vector3.zero + new Vector3(0,3,0);
+                transform.position = Vector3.zero + new Vector3(0, 3, 0);
                 lives--;
                 Debug.Log(lives);
             }
@@ -45,17 +64,15 @@ public class PlayerController : MonoBehaviour
             else if (hit.collider.gameObject.CompareTag("Ground"))
             {
                 offsetObject = hit.collider.gameObject;
-                Debug.Log(offsetObject.GetComponent<ObjectController>().offset);
+            }
+
+            else if ((hit.collider.gameObject.CompareTag("FinalPickup")))
+            {
+                youWinScreen.SetActive(true);
             }
         }
 
         Move();
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            cam.GetComponent<CamController>().currentCamera++;
-            transform.position += offsetObject.GetComponent<ObjectController>().offset;
-        }
 
         DeathCheck();
     }
@@ -66,7 +83,6 @@ public class PlayerController : MonoBehaviour
         if (camValue == 0)
         {
             MainCam();
-
         }
 
         else if (camValue == 1 || camValue == 2)
@@ -122,7 +138,6 @@ public class PlayerController : MonoBehaviour
         moveDirection.y = 0;
 
         Movement(moveDirection);
-
     }
 
     void Movement(Vector3 moveDirection)
@@ -138,6 +153,21 @@ public class PlayerController : MonoBehaviour
         if (lives == 0)
         {
             SceneManager.LoadScene("EndGame");
+        }
+    }
+
+    IEnumerator ChangingValue()
+    {
+        yield return new WaitForSeconds(1);
+        valueChanging = false;
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("FinalPickup"))
+        {
+            youWinScreen.SetActive(true);
         }
     }
 }
