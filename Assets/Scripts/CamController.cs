@@ -22,21 +22,23 @@ public class CamController : MonoBehaviour
 
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.E))
+        if (currentCamera < cameraList.Length)
         {
-            currentCamera++;
-            if (currentCamera < cameraList.Length)
+            if (currentCamera == 0)
             {
-                cameraList[currentCamera - 1].gameObject.SetActive(false);
                 cameraList[currentCamera].gameObject.SetActive(true);
             }
             else
             {
-                currentCamera = 0;
+                cameraList[currentCamera - 1].gameObject.SetActive(false);
                 cameraList[currentCamera].gameObject.SetActive(true);
-                cameraList[cameraList.Length - 1].gameObject.SetActive(false);
             }
+        }
+        else
+        {
+            currentCamera = 0;
+            cameraList[currentCamera].gameObject.SetActive(true);
+            cameraList[cameraList.Length - 1].gameObject.SetActive(false);
         }
     }
 }

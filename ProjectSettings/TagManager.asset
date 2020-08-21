@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - KillVolume
   layers:
   - Default
   - TransparentFX
