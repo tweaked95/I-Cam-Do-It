@@ -74,5 +74,4 @@ public class ObjectController : MonoBehaviour
         transform.position = tempPositionsTop;
     }
 
-
 }
