@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         groundElements = GameObject.FindGameObjectsWithTag("Ground");
         lives = 3;
+        Cursor.visible = false;
     }
 
     private void Update()

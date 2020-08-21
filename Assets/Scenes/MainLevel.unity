@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  rotationSpeed: 100
+  rotationSpeed: 200
   cam: {fileID: 549755815}
   youWinScreen: {fileID: 1244951053}
   groundElements: []
