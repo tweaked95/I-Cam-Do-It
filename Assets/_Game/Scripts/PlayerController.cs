@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public Camera cam;
     public GameObject youWinScreen;
+    public SceneController sceneCont;
 
     Transform relativeTransform;
     [SerializeField]
@@ -168,7 +169,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FinalPickup"))
         {
-            
+            sceneCont.ChangeScene();
+            transform.position = new Vector3(0, 1, 0);
         }
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public GameObject[] savedObjects;
-    public string[] sceneList;
 
     static int currentScene;
     private void Awake()
@@ -27,11 +26,11 @@ public class SceneController : MonoBehaviour
         currentScene++;
         if (currentScene == 2)
         {
-            SceneManager.LoadScene(sceneList[currentScene]);
+            SceneManager.LoadScene(currentScene);
         }
         if (currentScene == 3)
         {
-            SceneManager.LoadScene(sceneList[currentScene]);
+            SceneManager.LoadScene(currentScene);
         }
     }
 }
