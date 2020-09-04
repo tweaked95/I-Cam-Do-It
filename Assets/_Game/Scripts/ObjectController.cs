@@ -14,9 +14,9 @@ public class ObjectController : MonoBehaviour
 
     [SerializeField]
     int camValue;
-    public Camera cam;
+    Camera cam;
 
-    public GameObject player;
+    GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +28,8 @@ public class ObjectController : MonoBehaviour
         offsetSide = originalPositions - tempPositionsSide;
         offsetTop = originalPositions - tempPositionsTop;
 
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
@@ -61,7 +63,7 @@ public class ObjectController : MonoBehaviour
         else
         {
             Debug.Log("Called");
-            offset = offsetSide;
+            offset = offsetSide - offsetTop;
         }
         tempPositionsSide = new Vector3(0, tempPositionsSide.y, tempPositionsSide.z);
         transform.position = tempPositionsSide;

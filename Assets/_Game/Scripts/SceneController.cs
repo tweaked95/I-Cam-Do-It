@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public GameObject[] savedObjects;
+    public GameObject winScreen;
 
-    static int currentScene;
+    int sceneCounter;
     private void Awake()
     {
         foreach (GameObject obj in savedObjects)
@@ -18,19 +19,31 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
-        currentScene = 1;
+        sceneCounter = 0;
+    }
+
+    private void Update()
+    {
+        Scene activeScene = SceneManager.GetActiveScene();
+        if (activeScene.name == "EndGame")
+        {
+            foreach (GameObject obj in savedObjects)
+            {
+                Destroy(obj);
+            }
+        }
     }
 
     public void ChangeScene()
     {
-        currentScene++;
-        if (currentScene == 2)
+        sceneCounter++;
+        if (sceneCounter == 3)
         {
-            SceneManager.LoadScene(currentScene);
+            winScreen.SetActive(true);
         }
-        if (currentScene == 3)
+        else
         {
-            SceneManager.LoadScene(currentScene);
+            SceneManager.LoadScene(sceneCounter);
         }
     }
 }
