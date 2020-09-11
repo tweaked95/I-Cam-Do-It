@@ -37,7 +37,7 @@ public class SceneController : MonoBehaviour
     public void ChangeScene()
     {
         sceneCounter++;
-        if (sceneCounter == 3)
+        if (sceneCounter == 4)
         {
             winScreen.SetActive(true);
         }
