@@ -22,6 +22,10 @@ public class EndGameController : MonoBehaviour
         SceneManager.LoadScene("First");
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     public void Quit()
     {
         Application.Quit();

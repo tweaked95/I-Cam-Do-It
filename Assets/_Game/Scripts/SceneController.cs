@@ -19,13 +19,13 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
-        sceneCounter = 0;
+        sceneCounter = 1;
     }
 
     private void Update()
     {
         Scene activeScene = SceneManager.GetActiveScene();
-        if (activeScene.name == "EndGame")
+        if (activeScene.name == "EndGame" || activeScene.name == "WinScreen")
         {
             foreach (GameObject obj in savedObjects)
             {
@@ -37,9 +37,9 @@ public class SceneController : MonoBehaviour
     public void ChangeScene()
     {
         sceneCounter++;
-        if (sceneCounter == 4)
+        if (sceneCounter == 5)
         {
-            winScreen.SetActive(true);
+            print("failed");
         }
         else
         {
